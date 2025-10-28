@@ -39,15 +39,15 @@ public class ServiceDAOImpl implements ServiceDAO {
     @Override
     public void updateService(Service service) {
         logger.info("Updating service with id: {}", service.getService_id());
-        String sql = "UPDATE services SET service_name = ?, description = ? , price = ? , WHERE id = ?";
+        String sql = "UPDATE services SET service_name = ?, description = ? , price = ? , WHERE service_id = ?";
         int rowsAffected = jdbcTemplate.update(sql, service.getService_name(), service.getDescription(), service.getPrice());
         logger.info("Updated service. Rows affected: {}", rowsAffected);
     }
 
     @Override
-    public void deleteService(int id) {
+    public void deleteService(Long id) {
         logger.info("Deleting services with id: {}", id);
-        String sql = "DELETE FROM services WHERE id = ?";
+        String sql = "DELETE FROM services WHERE service_id = ?";
         int rowsAffected = jdbcTemplate.update(sql, id);
         logger.info("Deleted service. Rows affected: {}", rowsAffected);
     }

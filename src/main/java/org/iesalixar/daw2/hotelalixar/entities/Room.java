@@ -12,9 +12,11 @@ public class Room {
     private Long room_id;
     private String room_number;
     private String room_type;
+    private Double price;
 
-    public Room(String room_number, String room_type) {
+    public Room(String room_number, String room_type, Double price) {
         this.room_number = room_number;
         this.room_type = room_type;
+        this.price = price;
     }
 }
