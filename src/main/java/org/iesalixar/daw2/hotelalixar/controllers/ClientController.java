@@ -59,7 +59,6 @@ public class ClientController {
         model.addAttribute("client", client);
         return "client-form"; // Nombre de la plantilla Thymeleaf para el formulario
     }
-
     @PostMapping("/insert")
     public String insertClient(@ModelAttribute("client") Client client,
                                  RedirectAttributes redirectAttributes) {
