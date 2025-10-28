@@ -1,4 +1,4 @@
 package org.iesalixar.daw2.hotelalixar.dao;
 
-public interface ServiceDAOImpl {
+public interface ServiceDAO {
 }
