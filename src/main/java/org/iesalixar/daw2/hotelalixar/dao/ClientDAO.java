@@ -9,4 +9,5 @@ public interface ClientDAO {
     void insertClients(Client client) throws SQLException;
     void updateClients(Client client) throws SQLException;
     void deleteClients(Long client_id) throws SQLException;
+    Client getClientById(Long client_id) throws SQLException;
 }

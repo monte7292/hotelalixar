@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.sql.SQLException;
 import java.util.List;
 @Repository
 public class EmployeeDAOImpl implements EmployeeDAO {
@@ -62,5 +64,19 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         String sql = "DELETE FROM employees WHERE employee_id = ?";
         int rowsAffected = jdbcTemplate.update(sql, employee_id);
         logger.info("Deleted employee. Rows affected: {}", rowsAffected);
+    }
+
+    @Override
+    public Employee getEmployeeById(Long employee_id) throws SQLException {
+        logger.info("Retrieving employee by employee_id: {}", employee_id);
+        String sql = "SELECT * FROM employees WHERE employee_id = ?";
+        try {
+            Employee employee = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Employee.class), employee_id);
+            logger.info("Employee retrieved: {}", employee.getFull_name());
+            return employee;
+        } catch (Exception e) {
+            logger.warn("No employee found with employee_id: {}", employee_id);
+            return null;
+        }
     }
 }
