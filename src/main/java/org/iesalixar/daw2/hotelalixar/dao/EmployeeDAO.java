@@ -9,6 +9,7 @@ public interface EmployeeDAO {
     void insertEmployee(Employee employee) throws SQLException;
     void updateEmployee(Employee employee) throws SQLException ;
     void deleteEmployee(Long employee_id) throws SQLException;
+    Employee getEmployeeById(Long employee_id) throws SQLException;
 }
 
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -38,17 +39,31 @@ public class ServiceDAOImpl implements ServiceDAO {
 
     @Override
     public void updateService(Service service) {
-        logger.info("Updating service with id: {}", service.getService_id());
+        logger.info("Updating service with service_id: {}", service.getService_id());
         String sql = "UPDATE services SET service_name = ?, description = ? , price = ? , WHERE service_id = ?";
         int rowsAffected = jdbcTemplate.update(sql, service.getService_name(), service.getDescription(), service.getPrice());
         logger.info("Updated service. Rows affected: {}", rowsAffected);
     }
 
     @Override
-    public void deleteService(Long id) {
-        logger.info("Deleting services with id: {}", id);
+    public void deleteService(Long service_id) {
+        logger.info("Deleting services with service_id: {}", service_id);
         String sql = "DELETE FROM services WHERE service_id = ?";
-        int rowsAffected = jdbcTemplate.update(sql, id);
+        int rowsAffected = jdbcTemplate.update(sql, service_id);
         logger.info("Deleted service. Rows affected: {}", rowsAffected);
+    }
+
+    @Override
+    public Service getServiceById(Long service_id) throws SQLException {
+        logger.info("Retrieving service by service_id: {}", service_id);
+        String sql = "SELECT * FROM services WHERE service_id = ?";
+        try {
+            Service service = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Service.class), service_id);
+            logger.info("Service retrieved: {} - {} - {}", service.getService_name(), service.getDescription(), service.getPrice());
+            return service;
+        } catch (Exception e) {
+            logger.warn("No service found with service_id: {}", service_id);
+            return null;
+        }
     }
 }
