@@ -21,7 +21,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeDAO employeeDAO;
     @GetMapping
-    public String listEmployees(Model model) {
+    public String listEmplotees(Model model) {
         logger.info("Solicitando la lista de employees");
         List<Employee> listEmployees = null;
         try {
