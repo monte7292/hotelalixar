@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -46,10 +47,24 @@ public class RoomDAOImpl implements RoomDAO {
     }
 
     @Override
-    public void deleteRoom(Long id) {
-        logger.info("Deleting room {}", id);
+    public void deleteRoom(Long room_id) {
+        logger.info("Deleting room {}", room_id);
         String sql = "DELETE FROM rooms WHERE room_id = ?";
-        int rowsAffected = jdbcTemplate.update(sql, id);
+        int rowsAffected = jdbcTemplate.update(sql, room_id);
         logger.info("Deleted room. Rows affected: {}", rowsAffected);
+    }
+
+    @Override
+    public Room getRoomById(Long room_id) throws SQLException {
+        logger.info("Retrieving room by room_id: {}", room_id);
+        String sql = "SELECT * FROM rooms WHERE room_id = ?";
+        try {
+            Room room = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Room.class), room_id);
+            logger.info("Room retrieved: {} - {} - {}", room.getRoom_number(), room.getRoom_type(), room.getPrice());
+            return room;
+        } catch (Exception e) {
+            logger.warn("No room found with room_id: {}", room_id);
+            return null;
+        }
     }
 }

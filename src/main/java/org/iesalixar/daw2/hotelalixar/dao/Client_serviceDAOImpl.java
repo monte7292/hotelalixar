@@ -63,4 +63,18 @@ public class Client_serviceDAOImpl implements Client_serviceDAO{
         int rowsAffected = jdbcTemplate.update(sql, client_id, service_id);
         logger.info("Deleted client_service relation. Rows affected: {}", rowsAffected);
     }
+
+    @Override
+    public Client_service getClient_serviceById(Long client_id, Long service_id) throws SQLException {
+        logger.info("Retrieving client_service relation by client_id={} and service_id={}", client_id, service_id);
+        String sql = "SELECT * FROM client_services WHERE client_id = ? AND service_id = ?";
+        try {
+            Client_service client_service = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Client_service.class), client_id, service_id);
+            logger.info("Client_service retrieved: client_id={}, service_id={}, service_date={}", client_service.getClient_id().getClient_id(), client_service.getService_id().getService_id(), client_service.getService_date());
+            return client_service;
+        } catch (Exception e) {
+            logger.warn("No client_service found for client_id={} and service_id={}", client_id, service_id);
+            return null;
+        }
+    }
 }

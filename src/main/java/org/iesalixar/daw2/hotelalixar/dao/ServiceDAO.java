@@ -7,5 +7,6 @@ public interface ServiceDAO {
     List<Service> listAllService() throws SQLException;
     void insertService(Service service) throws SQLException;
     void updateService(Service service) throws SQLException;
-    void deleteService(Long id) throws SQLException;
+    void deleteService(Long service_id) throws SQLException;
+    Service getServiceById(Long service_id) throws SQLException;
 }
