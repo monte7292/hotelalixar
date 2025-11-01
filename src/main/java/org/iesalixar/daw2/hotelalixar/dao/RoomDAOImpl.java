@@ -41,8 +41,8 @@ public class RoomDAOImpl implements RoomDAO {
     @Override
     public void updateRoom(Room room) {
         logger.info("Updating room {}", room.getRoom_id());
-        String sql = "UPDATE rooms SET room_number = ?, room_type = ? , price = ? , WHERE room_id = ?";
-        int rowsAffected = jdbcTemplate.update(sql, room.getRoom_number(), room.getRoom_type(), room.getPrice());
+        String sql = "UPDATE rooms SET room_number = ?, room_type = ?, price = ? WHERE room_id = ?";
+        int rowsAffected = jdbcTemplate.update(sql, room.getRoom_number(), room.getRoom_type(), room.getPrice(), room.getRoom_id());
         logger.info("Updated rooms. Rows affected: {}", rowsAffected);
     }
 
