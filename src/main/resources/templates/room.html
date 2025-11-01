@@ -8,10 +8,11 @@
 <main class="container mt-5">
     <h1>Rooms</h1>
 
-    <!-- Muestra un mensaje de error si hay algún problema -->
-    <div th:if="${errorMessage}" class="alert alert-danger">
-        <p th:text="${errorMessage}"></p>
-    </div>
+    <!-- Mostrar mensaje de éxito si existe -->
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+    
+    <!-- Mostrar mensaje de error si existe -->
+    <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
 
     <!-- Muestra la lista de provincias en una tabla -->
     <table class="table table-bordered mt-3">

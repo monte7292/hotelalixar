@@ -8,12 +8,10 @@
 <main class="container mt-5">
     <h1 th:text="${room.room_id == null ? 'Añadir Nueva Habitación' : 'Editar Habitación'}"></h1>
 
-    <!-- Muestra un mensaje de error si hay algún problema -->
-    <div th:if="${errorMessage}" class="alert alert-danger">
-        <p th:text="${errorMessage}"></p>
-    </div>
-
-    <!-- Mostrar un mensaje de error si existe -->
+    <!-- Mostrar mensaje de éxito si existe -->
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+    
+    <!-- Mostrar mensaje de error si existe -->
     <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
     <form th:action="${room.room_id == null} ? @{/rooms/insert} : @{/rooms/update}" th:object="${room}" method="post" class="mt-4">
         <input type="hidden" th:field="*{room_id}" />

@@ -9,4 +9,6 @@ public interface RoomDAO {
     void updateRoom(Room room) throws SQLException;
     void deleteRoom(Long room_id) throws SQLException;
     Room getRoomById(Long room_id) throws SQLException;
+    boolean existsByRoomNumber(String room_number) throws SQLException;
+    boolean existsByRoomNumberExcludingId(String room_number, Long room_id) throws SQLException;
 }

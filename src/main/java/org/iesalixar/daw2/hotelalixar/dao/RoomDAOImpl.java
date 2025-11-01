@@ -67,4 +67,24 @@ public class RoomDAOImpl implements RoomDAO {
             return null;
         }
     }
+
+    @Override
+    public boolean existsByRoomNumber(String room_number) throws SQLException {
+        logger.info("Checking if room number exists: {}", room_number);
+        String sql = "SELECT COUNT(*) FROM rooms WHERE room_number = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, room_number);
+        boolean exists = count != null && count > 0;
+        logger.info("Room number {} exists: {}", room_number, exists);
+        return exists;
+    }
+
+    @Override
+    public boolean existsByRoomNumberExcludingId(String room_number, Long room_id) throws SQLException {
+        logger.info("Checking if room number {} exists excluding ID {}", room_number, room_id);
+        String sql = "SELECT COUNT(*) FROM rooms WHERE room_number = ? AND room_id != ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, room_number, room_id);
+        boolean exists = count != null && count > 0;
+        logger.info("Room number {} exists excluding ID {}: {}", room_number, room_id, exists);
+        return exists;
+    }
 }

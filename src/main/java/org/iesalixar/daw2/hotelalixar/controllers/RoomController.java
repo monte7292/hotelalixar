@@ -68,29 +68,49 @@ public class RoomController {
 
     @PostMapping("/insert")
     public String insertRoom(@ModelAttribute("room") Room room, RedirectAttributes redirectAttributes) {
-        logger.info("Insertando nueva habitacion con código {}", room.getRoom_id());
+        logger.info("Insertando nueva habitacion con número {}", room.getRoom_number());
         try {
+            // Validar si el número de habitación ya existe
+            if (roomDAO.existsByRoomNumber(room.getRoom_number())) {
+                logger.warn("El número de habitación {} ya existe", room.getRoom_number());
+                redirectAttributes.addFlashAttribute("errorMessage", 
+                    "El número de habitación " + room.getRoom_number() + " ya existe. Por favor, elija otro número.");
+                return "redirect:/rooms/new";
+            }
+            
             roomDAO.insertRoom(room);
-            logger.info("Room {} insertada con éxito.", room.getRoom_id());
+            logger.info("Room {} insertada con éxito.", room.getRoom_number());
+            redirectAttributes.addFlashAttribute("successMessage", "Habitación creada exitosamente.");
         } catch (SQLException e) {
-            logger.error("Error al insertar la habitacion {}: {}", room.getRoom_id(), e.getMessage());
+            logger.error("Error al insertar la habitacion {}: {}", room.getRoom_number(), e.getMessage());
             redirectAttributes.addFlashAttribute("errorMessage", "Error al insertar la habitacion.");
+            return "redirect:/rooms/new";
         }
 
-        return "redirect:/rooms"; // Redirigir a la lista de regiones
+        return "redirect:/rooms"; // Redirigir a la lista de habitaciones
     }
 
     @PostMapping("/update")
     public String updateRoom(@ModelAttribute("room") Room room, RedirectAttributes redirectAttributes) {
-        logger.info("Actualizando habitacion con ID {}", room.getRoom_id());
+        logger.info("Actualizando habitacion con ID {} y número {}", room.getRoom_id(), room.getRoom_number());
         try {
+            // Validar si el número de habitación ya existe (excluyendo la habitación actual)
+            if (roomDAO.existsByRoomNumberExcludingId(room.getRoom_number(), room.getRoom_id())) {
+                logger.warn("El número de habitación {} ya existe para otra habitación", room.getRoom_number());
+                redirectAttributes.addFlashAttribute("errorMessage", 
+                    "El número de habitación " + room.getRoom_number() + " ya existe. Por favor, elija otro número.");
+                return "redirect:/rooms/edit?room_id=" + room.getRoom_id();
+            }
+            
             roomDAO.updateRoom(room);
             logger.info("Habitacion con ID {} actualizada con éxito.", room.getRoom_id());
+            redirectAttributes.addFlashAttribute("successMessage", "Habitación actualizada exitosamente.");
         } catch (SQLException e) {
             logger.error("Error al actualizar la habitacion con ID {}: {}", room.getRoom_id(), e.getMessage());
             redirectAttributes.addFlashAttribute("errorMessage", "Error al actualizar la habitacion.");
+            return "redirect:/rooms/edit?room_id=" + room.getRoom_id();
         }
-        return "redirect:/rooms"; // Redirigir a la lista de regiones
+        return "redirect:/rooms"; // Redirigir a la lista de habitaciones
     }
 
     @PostMapping("/delete")
