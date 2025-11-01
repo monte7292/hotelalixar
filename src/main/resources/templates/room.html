@@ -33,7 +33,7 @@
             <td>
 
                 <!-- Botón para editar -->
-                <a th:href="@{/rooms/edit(id=${room.room_id})}" class="btn btnprimary btn-sm">Editar</a>
+                <a th:href="@{/rooms/edit(room_id=${room.room_id})}" class="btn btnprimary btn-sm">Editar</a>
 
                 <!-- Botón para eliminar -->
                 <form th:action="@{/rooms/delete}" method="post" class="dinline">
