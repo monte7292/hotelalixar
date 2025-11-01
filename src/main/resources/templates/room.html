@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head ('Ticket Logger - Listado de Provincias')"></head>
+<head th:replace="fragments/head :: head ('Hotel Alixar')"></head>
 <body>
 
 <!-- Incluir el fragmento del header -->
@@ -18,28 +18,28 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>Code</th>
-            <th>Name</th>
+            <th>Número de Habitación</th>
+            <th>Tipo de Habitación</th>
+            <th>Precio</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="province : ${listProvinces}">
-            <td th:text="${province.id}"></td>
-            <td th:text="${province.code}"></td>
-            <td th:text="${province.name}"></td>
-            <td th:text="${province.region != null ? province.regionName : 'Sin region'}"></td>
-
+        <tr th:each="room : ${listRooms}">
+            <td th:text="${room.room_id}"></td>
+            <td th:text="${room.room_number}"></td>
+            <td th:text="${room.room_type}"></td>
+            <td th:text="${room.price}"></td>
             <td>
 
                 <!-- Botón para editar -->
-                <a th:href="@{/provinces/edit(id=${province.id})}" class="btn btnprimary btn-sm">Edit</a>
+                <a th:href="@{/rooms/edit(id=${room.room_id})}" class="btn btnprimary btn-sm">Editar</a>
 
                 <!-- Botón para eliminar -->
-                <form th:action="@{/provinces/delete}" method="post" class="dinline">
-                    <input type="hidden" name="id" th:value="${province.id}"/>
+                <form th:action="@{/rooms/delete}" method="post" class="dinline">
+                    <input type="hidden" name="id" th:value="${room.room_id}"/>
                     <button type="submit" class="btn btn-danger btn-sm" th:onclick="|return confirm('Are you sure you want to delete this province?');|">
-                        Delete
+                        Borrar
                     </button>
                 </form>
             </td>
@@ -48,10 +48,10 @@
     </table>
 
     <!-- Botón para añadir una nueva provincia -->
-    <a th:href="@{/provinces/new}" class="btn btn-success mt-3">Add New Province</a>
+    <a th:href="@{/rooms/new}" class="btn btn-success mt-3">Añadir Nueva Habitación</a>
 
     <!-- Volver a la página principal -->
-    <a href="#" th:href="@{/}" class="btn btn-secondary mt-3">Back to Home</a>
+    <a href="#" th:href="@{/}" class="btn btn-secondary mt-3">Volver al Inicio</a>
 </main>
 
 <!-- Incluir el fragmento del footer -->
