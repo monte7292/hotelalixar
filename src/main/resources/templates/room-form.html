@@ -16,7 +16,7 @@
     <!-- Mostrar un mensaje de error si existe -->
     <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
     <form th:action="${room.room_id == null} ? @{/rooms/insert} : @{/rooms/update}" th:object="${room}" method="post" class="mt-4">
-        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{room_id}" />
         <div class="mb-3">
             <label for="room_number" class="form-label">Número de Habitación:</label>
             <input type="text" th:field="*{room_number}" room_id="room_number" class="formcontrol" required />
