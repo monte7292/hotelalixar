@@ -37,10 +37,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
      */
     @Override
     public void insertEmployee(Employee employee) {
-        logger.info("Inserting Employee full_name: {}",
-                employee.getFull_name());
-        String sql = "INSERT INTO employees (full_name) VALUES (?, ?)";
-        Long rowsAffected = (long) jdbcTemplate.update(sql, employee.getEmployee_id(), employee.getFull_name());
+        logger.info("Inserting Employee full_name: {}", employee.getFull_name());
+        String sql = "INSERT INTO employees (full_name) VALUES (?)";
+        Long rowsAffected = (long) jdbcTemplate.update(sql, employee.getFull_name());
         logger.info("Inserted employee. Rows affected: {}", rowsAffected);
     }
     /**
@@ -50,8 +49,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public void updateEmployee(Employee employee) {
         logger.info("Updating employee with id: {}", employee.getEmployee_id());
-        String sql = "UPDATE employees SET Employee_id = ?, full_name = ?";
-        Long rowsAffected = (long) jdbcTemplate.update(sql, employee.getEmployee_id(), employee.getFull_name());
+        String sql = "UPDATE employees SET full_name = ? WHERE employee_id = ?";
+        Long rowsAffected = (long) jdbcTemplate.update(sql, employee.getFull_name(), employee.getEmployee_id());
         logger.info("Updated employee. Rows affected: {}", rowsAffected);
     }
     /**
