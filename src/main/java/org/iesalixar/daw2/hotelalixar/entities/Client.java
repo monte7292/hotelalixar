@@ -16,11 +16,9 @@ public class Client {
     private String email;
     private String phone;
 
-    @OneToOne
-    @JoinColumn(name = "room_id") // FK hacia la tabla rooms
-    private Room room_id;
+    private Integer room_id;
 
-    public Client(String full_name, String email, String phone, Room room_id){
+    public Client(String full_name, String email, String phone, Integer room_id){
         this.full_name = full_name;
         this.email = email;
         this.phone = phone;

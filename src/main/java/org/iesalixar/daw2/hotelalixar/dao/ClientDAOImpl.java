@@ -38,7 +38,7 @@ public class ClientDAOImpl implements ClientDAO{
                 client.getFull_name(),
                 client.getEmail(),
                 client.getPhone(),
-                client.getRoom_id() != null ? client.getRoom_id().getRoom_id() : null
+                client.getRoom_id()
         );
         logger.info("Inserted client. Rows affected: {}", rowsAffected);
     }
@@ -52,7 +52,7 @@ public class ClientDAOImpl implements ClientDAO{
                 client.getFull_name(),
                 client.getEmail(),
                 client.getPhone(),
-                client.getRoom_id() != null ? client.getRoom_id().getRoom_id() : null,
+                client.getRoom_id(),
                 client.getClient_id()
         );
         logger.info("Updated client. Rows affected: {}", rowsAffected);

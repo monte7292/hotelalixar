@@ -6,11 +6,11 @@
 <!-- Incluir el fragmento del header -->
 <header th:replace="fragments/header :: header"></header>
 <main class="container mt-5">
-    <h1>Rooms</h1>
+    <h1>Clientes</h1>
 
     <!-- Mostrar mensaje de éxito si existe -->
     <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
-    
+
     <!-- Mostrar mensaje de error si existe -->
     <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
 
@@ -18,27 +18,29 @@
     <table class="table table-bordered mt-3">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Número de Habitación</th>
-            <th>Tipo de Habitación</th>
-            <th>Precio</th>
+            <th>ID de la persona</th>
+            <th>Nombre Completo</th>
+            <th>Correo</th>
+            <th>Número</th>
+            <th>Habitación asignada</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="room : ${listRooms}">
-            <td th:text="${room.room_id}"></td>
-            <td th:text="${room.room_number}"></td>
-            <td th:text="${room.room_type}"></td>
-            <td th:text="${room.price}"></td>
+        <tr th:each="client : ${listClients}">
+            <td th:text="${client.client_id}"></td>
+            <td th:text="${client.full_name}"></td>
+            <td th:text="${client.email}"></td>
+            <td th:text="${client.phone}"></td>
+            <td th:text="${client.room_id}"></td>
             <td>
 
                 <!-- Botón para editar -->
-                <a th:href="@{/rooms/edit(room_id=${room.room_id})}" class="btn btn-primary btn-sm">Editar</a>
+                <a th:href="@{/clients/edit(client_id=${client.client_id})}" class="btn btn-primary btn-sm">Editar</a>
 
                 <!-- Botón para eliminar -->
-                <form th:action="@{/rooms/delete}" method="post" class="dinline">
-                    <input type="hidden" name="room_id" th:value="${room.room_id}"/>
+                <form th:action="@{/clients/delete}" method="post" class="dinline">
+                    <input type="hidden" name="client_id" th:value="${client.client_id}"/>
                     <button type="submit" class="btn btn-danger btn-sm" th:onclick="|return confirm('Are you sure you want to delete this province?');|">
                         Borrar
                     </button>
@@ -49,7 +51,7 @@
     </table>
 
     <!-- Botón para añadir una nueva provincia -->
-    <a th:href="@{/rooms/new}" class="btn btn-success mt-3">Añadir Nueva Habitación</a>
+    <a th:href="@{/clients/new}" class="btn btn-success mt-3">Añadir Nuevo Cliente</a>
 
     <!-- Volver a la página principal -->
     <a href="#" th:href="@{/}" class="btn btn-secondary mt-3">Volver al Inicio</a>

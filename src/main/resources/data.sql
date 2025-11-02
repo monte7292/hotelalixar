@@ -2,7 +2,8 @@ INSERT INTO rooms (room_number, room_type, price) VALUES
 ('101', 'Individual', 50.00),
 ('102', 'Doble', 80.00),
 ('201', 'Suite', 150.00),
-('202', 'Deluxe', 200.00);
+('202', 'Deluxe', 200.00),
+('203', 'Suite Deluxe', 220.00);
 
 INSERT INTO clients (full_name, email, phone, room_id) VALUES
 -- Habitación 1
