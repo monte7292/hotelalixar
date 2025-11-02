@@ -5,10 +5,26 @@ INSERT INTO rooms (room_number, room_type, price) VALUES
 ('202', 'Deluxe', 200.00);
 
 INSERT INTO clients (full_name, email, phone, room_id) VALUES
+-- Habitación 1
 ('Carlos Ramírez', 'carlos.ramirez@email.com', '600123456', 1),
+('María López', 'maria.lopez@email.com', '600654321', 1),
+-- Habitación 2
 ('Lucía Fernández', 'lucia.fernandez@email.com', '600987654', 2),
+('Javier Ruiz', 'javier.ruiz@email.com', '600777888', 2),
+-- Habitación 3
 ('Pedro Gómez', 'pedro.gomez@email.com', '600456789', 3),
-('Ana Torres', 'ana.torres@email.com', '600321654', NULL); -- aún sin habitación
+('Laura Sánchez', 'laura.sanchez@email.com', '600999000', 3),
+-- Habitación 4
+('Andrés Martínez', 'andres.martinez@email.com', '600555444', 4),
+('Paula Vega', 'paula.vega@email.com', '600555333', 4),
+-- Habitación 5
+('Sergio Navarro', 'sergio.navarro@email.com', '600444555', 5),
+('Elena Morales', 'elena.morales@email.com', '600333222', 5),
+-- Sin habitación asignada
+('Ana Torres', 'ana.torres@email.com', '600321654', NULL),
+('Marta Díaz', 'marta.diaz@email.com', '600222111', NULL),
+('Roberto León', 'roberto.leon@email.com', '600888777', NULL);
+
 
 INSERT INTO employees (full_name) VALUES
 ('María López'),
