@@ -16,12 +16,9 @@ public class Service {
     private String service_name;
     private String description;
     private double price;
+    private Integer employee_id;
 
-    @OneToMany
-    @JoinColumn(name = "employee_id") // FK hacia la tabla rooms
-    private Employee employee_id;
-
-    public Service(String service_name, String description, double price, Employee employee_id) {
+    public Service(String service_name, String description, double price, Integer employee_id) {
         this.service_name = service_name;
         this.description = description;
         this.price = price;
