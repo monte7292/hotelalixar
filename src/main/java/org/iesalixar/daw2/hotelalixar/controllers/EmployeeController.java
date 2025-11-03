@@ -68,6 +68,7 @@ public class EmployeeController {
 
             employeeDAO.insertEmployee(employee);
             logger.info("Employee {} insertada con éxito.", employee.getEmployee_id());
+            redirectAttributes.addFlashAttribute("successMessage", "Empleado añadido exitosamente.");
         } catch (SQLException e) {
             logger.error("Error al insertar el employee {}: {}", employee.getEmployee_id(),
                     e.getMessage());
@@ -82,11 +83,10 @@ public class EmployeeController {
         logger.info("Actualizando employee con ID {}", employee.getEmployee_id());
         try {
             employeeDAO.updateEmployee(employee);
-            logger.info("Employee con ID {} actualizada con éxito.",
-                    employee.getEmployee_id());
+            logger.info("Employee con ID {} actualizada con éxito.", employee.getEmployee_id());
+            redirectAttributes.addFlashAttribute("successMessage", "Empleado actualizado exitosamente.");
         } catch (SQLException e) {
-            logger.error("Error al actualizar el employee con ID {}: {}",
-                    employee.getEmployee_id(), e.getMessage());
+            logger.error("Error al actualizar el employee con ID {}: {}", employee.getEmployee_id(), e.getMessage());
             redirectAttributes.addFlashAttribute("errorMessage", "Error al actualizar el employee.");
         }
         return "redirect:/employees"; // Redirigir a la lista de employees
@@ -98,6 +98,7 @@ public class EmployeeController {
         try {
             employeeDAO.deleteEmployee(employee_id);
             logger.info("Employee con ID {} eliminada con éxito.", employee_id);
+            redirectAttributes.addFlashAttribute("successMessage", "Empleado eliminado exitosamente.");
         } catch (SQLException e) {
             logger.error("Error al eliminar la Employee con ID {}: {}", employee_id,
                     e.getMessage());
