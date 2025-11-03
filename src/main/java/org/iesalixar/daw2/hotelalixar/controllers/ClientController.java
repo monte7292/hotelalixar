@@ -1,6 +1,7 @@
 package org.iesalixar.daw2.hotelalixar.controllers;
 
 import org.iesalixar.daw2.hotelalixar.dao.ClientDAO;
+import org.iesalixar.daw2.hotelalixar.dao.RoomDAO;
 import org.iesalixar.daw2.hotelalixar.entities.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,9 @@ public class ClientController {
     // DAO para gestionar las operaciones de los clientes en la base de datos
     @Autowired
     private ClientDAO clientDAO;
+    @Autowired
+    private RoomDAO roomDAO;
+    
     @GetMapping
     public String listClient(Model model) {
         logger.info("Solicitando la lista de clients");
@@ -64,6 +68,15 @@ public class ClientController {
                                  RedirectAttributes redirectAttributes) {
         logger.info("Insertando nuevo cliente con id {}", client.getClient_id());
         try {
+            // Validar que la habitación existe si se ha proporcionado room_id
+            if (client.getRoom_id() != null) {
+                Long roomIdLong = client.getRoom_id().longValue();
+                if (roomDAO.getRoomById(roomIdLong) == null) {
+                    logger.warn("La habitación con ID {} no existe", client.getRoom_id());
+                    redirectAttributes.addFlashAttribute("errorMessage", "La habitación con ID " + client.getRoom_id() + " no existe.");
+                    return "redirect:/clients/new";
+                }
+            }
             clientDAO.insertClients(client);
             logger.info("Client {} insertada con éxito.", client.getClient_id());
             redirectAttributes.addFlashAttribute("successMessage", "Cliente añadido exitosamente.");
@@ -79,6 +92,15 @@ public class ClientController {
                                  RedirectAttributes redirectAttributes) {
         logger.info("Actualizando client con ID {}", client.getClient_id());
         try {
+            // Validar que la habitación existe si se ha proporcionado room_id
+            if (client.getRoom_id() != null) {
+                Long roomIdLong = client.getRoom_id().longValue();
+                if (roomDAO.getRoomById(roomIdLong) == null) {
+                    logger.warn("La habitación con ID {} no existe", client.getRoom_id());
+                    redirectAttributes.addFlashAttribute("errorMessage", "La habitación con ID " + client.getRoom_id() + " no existe.");
+                    return "redirect:/clients/edit?client_id=" + client.getClient_id();
+                }
+            }
             clientDAO.updateClients(client);
             logger.info("Client con ID {} actualizada con éxito.", client.getClient_id());
             redirectAttributes.addFlashAttribute("successMessage", "Servicio actualizado exitosamente.");

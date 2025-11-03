@@ -1,6 +1,7 @@
 package org.iesalixar.daw2.hotelalixar.controllers;
 
 import org.iesalixar.daw2.hotelalixar.dao.ServiceDAO;
+import org.iesalixar.daw2.hotelalixar.dao.EmployeeDAO;
 import org.iesalixar.daw2.hotelalixar.entities.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,8 @@ public class ServiceController {
     // DAO para gestionar las operaciones de las regiones en la base de datos
     @Autowired
     private ServiceDAO serviceDAO;
+    @Autowired
+    private EmployeeDAO employeeDAO;
 
     @GetMapping
     public String listServices(Model model) {
@@ -70,6 +73,15 @@ public class ServiceController {
     public String insertService(@ModelAttribute("service") Service service, RedirectAttributes redirectAttributes) {
         logger.info("Insertando nuevo servicio con código {}", service.getService_id());
         try {
+            // Validar que el empleado existe si se ha proporcionado employee_id
+            if (service.getEmployee_id() != null) {
+                Long employeeIdLong = service.getEmployee_id().longValue();
+                if (employeeDAO.getEmployeeById(employeeIdLong) == null) {
+                    logger.warn("El empleado con ID {} no existe", service.getEmployee_id());
+                    redirectAttributes.addFlashAttribute("errorMessage", "El empleado con ID " + service.getEmployee_id() + " no existe.");
+                    return "redirect:/services/new";
+                }
+            }
             serviceDAO.insertService(service);
             logger.info("Servicio {} insertada con éxito.", service.getService_id());
             redirectAttributes.addFlashAttribute("successMessage", "Servicio añadido exitosamente.");
@@ -85,6 +97,15 @@ public class ServiceController {
     public String updateService(@ModelAttribute("service") Service service, RedirectAttributes redirectAttributes) {
         logger.info("Actualizando service con ID {}", service.getService_id());
         try {
+            // Validar que el empleado existe si se ha proporcionado employee_id
+            if (service.getEmployee_id() != null) {
+                Long employeeIdLong = service.getEmployee_id().longValue();
+                if (employeeDAO.getEmployeeById(employeeIdLong) == null) {
+                    logger.warn("El empleado con ID {} no existe", service.getEmployee_id());
+                    redirectAttributes.addFlashAttribute("errorMessage", "El empleado con ID " + service.getEmployee_id() + " no existe.");
+                    return "redirect:/services/edit?service_id=" + service.getService_id();
+                }
+            }
             serviceDAO.updateService(service);
             logger.info("Service con ID {} actualizada con éxito.", service.getService_id());
             redirectAttributes.addFlashAttribute("successMessage", "Servicio actualizado exitosamente.");
