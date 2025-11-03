@@ -95,6 +95,7 @@ public class ClientController {
         try {
             clientDAO.deleteClients(client_id);
             logger.info("Client con ID {} eliminada con éxito.", client_id);
+            redirectAttributes.addFlashAttribute("errorMessage", "Cliente eliminado exitosamente.");
         } catch (SQLException e) {
             logger.error("Error al eliminar la Client con ID {}: {}", client_id,
                     e.getMessage());
