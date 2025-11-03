@@ -64,12 +64,11 @@ public class ClientController {
                                  RedirectAttributes redirectAttributes) {
         logger.info("Insertando nuevo cliente con id {}", client.getClient_id());
         try {
-
             clientDAO.insertClients(client);
             logger.info("Client {} insertada con éxito.", client.getClient_id());
+            redirectAttributes.addFlashAttribute("successMessage", "Cliente añadido exitosamente.");
         } catch (SQLException e) {
-            logger.error("Error al insertar el client {}: {}", client.getClient_id(),
-                    e.getMessage());
+            logger.error("Error al insertar el client {}: {}", client.getClient_id(), e.getMessage());
             redirectAttributes.addFlashAttribute("errorMessage", "Error al insertar el client.");
         }
         return "redirect:/clients"; // Redirigir a la lista de clients
@@ -81,11 +80,10 @@ public class ClientController {
         logger.info("Actualizando client con ID {}", client.getClient_id());
         try {
             clientDAO.updateClients(client);
-            logger.info("Client con ID {} actualizada con éxito.",
-                    client.getClient_id());
+            logger.info("Client con ID {} actualizada con éxito.", client.getClient_id());
+            redirectAttributes.addFlashAttribute("successMessage", "Servicio actualizado exitosamente.");
         } catch (SQLException e) {
-            logger.error("Error al actualizar el client con ID {}: {}",
-                    client.getClient_id(), e.getMessage());
+            logger.error("Error al actualizar el client con ID {}: {}", client.getClient_id(), e.getMessage());
             redirectAttributes.addFlashAttribute("errorMessage", "Error al actualizar el client.");
         }
         return "redirect:/clients"; // Redirigir a la lista de clients
