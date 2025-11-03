@@ -86,6 +86,7 @@ public class ServiceController {
         try {
             serviceDAO.updateService(service);
             logger.info("Service con ID {} actualizada con éxito.", service.getService_id());
+            redirectAttributes.addFlashAttribute("successMessage", "Servicio actualizado exitosamente.");
         } catch (SQLException e) {
             logger.error("Error al actualizar el servicio con ID {}: {}", service.getService_id(), e.getMessage());
             redirectAttributes.addFlashAttribute("errorMessage", "Error al actualizar el servicio.");

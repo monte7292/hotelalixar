@@ -31,17 +31,17 @@ public class ServiceDAOImpl implements ServiceDAO {
 
     @Override
     public void insertService(Service service) {
-        logger.info("Inserting service with service_name: {} ,description: {}, and price {}", service.getService_name(), service.getDescription(), service.getPrice());
-        String sql = "INSERT INTO services (service_name, description, price) VALUES (?, ?, ?)";
-        int rowsAffected = jdbcTemplate.update(sql, service.getService_name(), service.getDescription(), service.getPrice());
+        logger.info("Inserting service with service_name: {} , {}, {}, {} ", service.getService_name(), service.getDescription(), service.getPrice(), service.getEmployee_id());
+        String sql = "INSERT INTO services (service_name, description, price, employee_id) VALUES (?, ?, ?, ?)";
+        int rowsAffected = jdbcTemplate.update(sql, service.getService_name(), service.getDescription(), service.getPrice(), service.getEmployee_id());
         logger.info("Inserted services. Rows affected: {}", rowsAffected);
     }
 
     @Override
     public void updateService(Service service) {
         logger.info("Updating service with service_id: {}", service.getService_id());
-        String sql = "UPDATE services SET service_name = ?, description = ? , price = ? , WHERE service_id = ?";
-        int rowsAffected = jdbcTemplate.update(sql, service.getService_name(), service.getDescription(), service.getPrice());
+        String sql = "UPDATE services SET service_name = ?, description = ?, price = ?, employee_id = ? WHERE service_id = ?";
+        int rowsAffected = jdbcTemplate.update(sql, service.getService_name(), service.getDescription(), service.getPrice(), service.getEmployee_id() ,service.getService_id());
         logger.info("Updated service. Rows affected: {}", rowsAffected);
     }
 
