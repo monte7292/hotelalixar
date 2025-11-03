@@ -42,14 +42,14 @@ CREATE TABLE IF NOT EXISTS services (
 
 -- Tabla intermedia para la relación muchos a muchos entre clientes y servicios
 CREATE TABLE IF NOT EXISTS client_services (
-   client_id INT,
-   service_id INT,
+   full_name_client VARCHAR(100),
+   service_name VARCHAR(100),
    service_date DATE DEFAULT CURRENT_DATE,
-   PRIMARY KEY (client_id, service_id),
-    FOREIGN KEY (client_id) REFERENCES clients(client_id)
+   PRIMARY KEY (full_name_client, service_name),
+    FOREIGN KEY (full_name_client) REFERENCES clients(full_name)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-        FOREIGN KEY (service_id) REFERENCES services(service_id)
+        FOREIGN KEY (service_name) REFERENCES services(service_name)
         ON DELETE CASCADE
         ON UPDATE CASCADE
     )
