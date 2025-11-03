@@ -1,44 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head ('Hotel Alixar - Insertar/Actualizar Clientes - Servicios')">
-</head>
+<head th:replace="fragments/head :: head ('Hotel Alixar')"></head>
 <body>
 
-    <!-- Incluir el fragmento del header -->
-    <header th:replace="fragments/header :: header"></header>
-    <main class="container mt-5">
-        <h1 th:text="${client_service.client_id == null && client_service.service_id == null ? 'Añadir Nuevo Cliente - Servicio' : 'Editar Cliente - Servicio'}"></h1>
-        <!-- Mostrar mensaje de éxito si existe -->
-        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+<!-- Incluir el fragmento del header -->
+<header th:replace="fragments/header :: header"></header>
+<main class="container mt-5">
+    <h1>Servicio de los clientes</h1>
 
-        <!-- Mostrar mensaje de error si existe -->
-        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+    <!-- Mostrar mensaje de éxito si existe -->
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
 
-        <form th:action="${client_service.client_id == null && client_service.service_id == null} ? @{/clients_services/insert} : @{/clients_services/update}" th:object="${client_service}" method="post" class="mt-4">
-            <input type="hidden" th:field="*{client_id}" />
-            <input type="hidden" th:field="*{service_id}" />
+    <!-- Mostrar mensaje de error si existe -->
+    <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
 
-            <div class="mb-3">
-                <label for="client_id" class="form-label">Cliente asignada (ID):</label>
-                <input type="number" th:field="*{client_id}" id="client_id" class="form-control" required />
-            </div>
+    <!-- Muestra la lista de provincias en una tabla -->
+    <table class="table table-bordered mt-3">
+        <thead>
+        <tr>
+            <th>ID del cliente</th>
+            <th>ID del servicio</th>
+            <th>Fecha del servicio</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="client_service : ${listClients_services}">
+            <td th:text="${client_service.client_id}"></td>
+            <td th:text="${client_service.service_id}"></td>
+            <td th:text="${client_service.service_date}"></td>
+            <td>
 
-            <div class="mb-3">
-                <label for="service_id" class="form-label">Servicio asignada (ID):</label>
-                <input type="number" th:field="*{service_id}" id="service_id" class="form-control" required />
-            </div>
+                <!-- Botón para editar -->
+                <a th:href="@{/clients_services/edit(client_id=${client_service.client_id}&service_id=${client_service.service_id})}" class="btn btn-primary btn-sm">Editar</a>
 
-            <div class="mb-3">
-                <label for="service_date" class="form-label">Fecha del servicio:</label>
-                <input type="date" th:field="*{service_date}" id="service_date" class="form-control" required />
-            </div>
+                <!-- Botón para eliminar -->
+                <form th:action="@{/clients_services/delete}" method="post" class="dinline">
+                    <input type="hidden" name="client_id" th:value="${client.client_id}"/>
+                    <button type="submit" class="btn btn-danger btn-sm" th:onclick="|return confirm('Are you sure you want to delete this province?');|">
+                        Borrar
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-            <button type="submit" class="btn btn-primary" th:text="${client_service.client_id == null && client_service.service_id == null ? 'Crear' : 'Actualizar'}"></button>
-        </form>
+    <!-- Botón para añadir una nueva provincia -->
+    <a th:href="@{/clients/new}" class="btn btn-success mt-3">Añadir Nuevo Cliente</a>
 
-        <!-- Volver a la lista de clientes_servicios -->
-        <a href="#" th:href="@{/clients_services}" class="btn btn-secondary mt-3">Volver a la Lista</a>
-    </main>
+    <!-- Volver a la página principal -->
+    <a href="#" th:href="@{/}" class="btn btn-secondary mt-3">Volver al Inicio</a>
+</main>
 
 </body>
 </html>
