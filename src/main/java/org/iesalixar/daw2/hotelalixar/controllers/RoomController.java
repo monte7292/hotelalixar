@@ -119,6 +119,7 @@ public class RoomController {
         try {
             roomDAO.deleteRoom(room_id);
             logger.info("Habitacion con ID {} eliminada con éxito.", room_id);
+            redirectAttributes.addFlashAttribute("successMessage", "Habitación borrada exitosamente.");
         } catch (SQLException e) {
             logger.error("Error al eliminar la habitacion con ID {}: {}", room_id, e.getMessage());
             redirectAttributes.addFlashAttribute("errorMessage", "Error al eliminar la habitacion.");

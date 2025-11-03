@@ -72,6 +72,7 @@ public class ServiceController {
         try {
             serviceDAO.insertService(service);
             logger.info("Servicio {} insertada con éxito.", service.getService_id());
+            redirectAttributes.addFlashAttribute("successMessage", "Servicio añadido exitosamente.");
         } catch (SQLException e) {
             logger.error("Error al insertar el servicio {}: {}", service.getService_id(), e.getMessage());
             redirectAttributes.addFlashAttribute("errorMessage", "Error al insertar la región.");
@@ -81,7 +82,7 @@ public class ServiceController {
     }
 
     @PostMapping("/update")
-    public String updateProvincia(@ModelAttribute("service") Service service, RedirectAttributes redirectAttributes) {
+    public String updateService(@ModelAttribute("service") Service service, RedirectAttributes redirectAttributes) {
         logger.info("Actualizando service con ID {}", service.getService_id());
         try {
             serviceDAO.updateService(service);
@@ -95,11 +96,12 @@ public class ServiceController {
     }
 
     @PostMapping("/delete")
-    public String deleteProvincia(@RequestParam("service_id") Long service_id, RedirectAttributes redirectAttributes) {
+    public String deleteService(@RequestParam("service_id") Long service_id, RedirectAttributes redirectAttributes) {
         logger.info("Eliminando servicio con ID {}", service_id);
         try {
             serviceDAO.deleteService(service_id);
             logger.info("Servicio con ID {} eliminada con éxito.", service_id);
+            redirectAttributes.addFlashAttribute("successMessage", "Servicio borrado exitosamente.");
         } catch (SQLException e) {
             logger.error("Error al eliminar el servicio con ID {}: {}", service_id, e.getMessage());
             redirectAttributes.addFlashAttribute("errorMessage", "Error al eliminar el servicio.");
