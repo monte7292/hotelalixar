@@ -1,9 +1,6 @@
 package org.iesalixar.daw2.hotelalixar.controllers;
 
-import org.iesalixar.daw2.hotelalixar.dao.ClientDAO;
 import org.iesalixar.daw2.hotelalixar.dao.Client_serviceDAO;
-import org.iesalixar.daw2.hotelalixar.dao.RoomDAO;
-import org.iesalixar.daw2.hotelalixar.entities.Client;
 import org.iesalixar.daw2.hotelalixar.entities.Client_service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +17,7 @@ import java.util.List;
 @RequestMapping("/clients_services")
 public class Client_serviceController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
+    private static final Logger logger = LoggerFactory.getLogger(Client_serviceController.class);
     // DAO para gestionar las operaciones de los servicios de los clientes en la base de datos
 
     @Autowired
@@ -72,36 +69,36 @@ public class Client_serviceController {
             logger.info("Client_service {} {} insertada con éxito.", client_service.getClient_id(), client_service.getService_id());
             redirectAttributes.addFlashAttribute("successMessage", "Servicio de Cliente añadido exitosamente.");
         } catch (SQLException e) {
-            logger.error("Error al insertar el client {}, {}: {}", client_service.getClient_id(), client_service.getService_id(), e.getMessage());
-            redirectAttributes.addFlashAttribute("errorMessage", "Error al insertar el client.");
+            logger.error("Error al insertar el client_service {}, {}: {}", client_service.getClient_id(), client_service.getService_id(), e.getMessage());
+            redirectAttributes.addFlashAttribute("errorMessage", "Error al insertar el client_service.");
         }
-        return "redirect:/clients_services"; // Redirigir a la lista de clients
+        return "redirect:/clients_services"; // Redirigir a la lista de clients_services
     }
 
     @PostMapping("/update")
     public String updateClient_services(@ModelAttribute("client_service") Client_service client_service, RedirectAttributes redirectAttributes) {
-        logger.info("Actualizando client con ID {}, {}", client_service.getClient_id(), client_service.getService_id());
+        logger.info("Actualizando client_service con ID {}, {}", client_service.getClient_id(), client_service.getService_id());
         try {
             clientServiceDAO.updateClient_services(client_service);
-            logger.info("Client con ID {}, {} actualizada con éxito.", client_service.getClient_id(), client_service.getService_date());
-            redirectAttributes.addFlashAttribute("successMessage", "Servicio actualizado exitosamente.");
+            logger.info("Client_service con ID {}, {} actualizada con éxito.", client_service.getClient_id(), client_service.getService_date());
+            redirectAttributes.addFlashAttribute("successMessage", "Servicio de Cliente actualizado exitosamente.");
         } catch (SQLException e) {
-            logger.error("Error al actualizar el client con ID {}, {}: {}", client_service.getClient_id(), client_service.getService_id(), e.getMessage());
-            redirectAttributes.addFlashAttribute("errorMessage", "Error al actualizar el client.");
+            logger.error("Error al actualizar el client_service con ID {}, {}: {}", client_service.getClient_id(), client_service.getService_id(), e.getMessage());
+            redirectAttributes.addFlashAttribute("errorMessage", "Error al actualizar el client_service.");
         }
         return "redirect:/clients_services"; // Redirigir a la lista de clients_services
     }
 
     @PostMapping("/delete")
     public String deleteClient_services(@RequestParam("client_id") Long client_id, @RequestParam("service_id") Long service_id, RedirectAttributes redirectAttributes) {
-        logger.info("Eliminando client con ID {}, {}", client_id, service_id);
+        logger.info("Eliminando client_service con ID {}, {}", client_id, service_id);
         try {
             clientServiceDAO.deleteClient_services(client_id, service_id);
-            logger.info("Client con ID {}, {} eliminada con éxito.", client_id, service_id);
+            logger.info("Client_service con ID {}, {} eliminada con éxito.", client_id, service_id);
             redirectAttributes.addFlashAttribute("errorMessage", "Servicio de Cliente eliminado exitosamente.");
         } catch (SQLException e) {
-            logger.error("Error al eliminar la Client con ID {}, {}: {}", client_id, service_id, e.getMessage());
-            redirectAttributes.addFlashAttribute("errorMessage", "Error al eliminar el Client.");
+            logger.error("Error al eliminar la Client_service con ID {}, {}: {}", client_id, service_id, e.getMessage());
+            redirectAttributes.addFlashAttribute("errorMessage", "Error al eliminar el client_service.");
         }
         return "redirect:/clients_services";
     }
