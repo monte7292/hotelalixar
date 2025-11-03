@@ -40,10 +40,10 @@ INSERT INTO services (service_name, description, price, employee_id) VALUES
 ('Servicio de lavandería', 'Lavado y planchado de ropa personal.', 25.00, 4),
 ('Transporte al aeropuerto', 'Traslado privado al aeropuerto local.', 35.00, 4);
 
-INSERT INTO client_services (client_id, service_id, service_date) VALUES
-(1, 1, '2025-10-25'),  -- Carlos usó limpieza diaria
-(1, 3, '2025-10-26'),  -- Carlos tomó desayuno buffet
-(2, 2, '2025-10-27'),  -- Lucía recibió masaje
-(2, 3, '2025-10-27'),  -- Lucía también tomó desayuno
-(3, 4, '2025-10-28'),  -- Pedro usó lavandería
-(3, 5, '2025-10-28');  -- Pedro usó transporte
+INSERT INTO client_services (full_name_client, service_name, service_date) VALUES
+('Carlos Ramírez', 'Limpieza diaria', '2025-10-25'),  -- Carlos usó limpieza diaria
+('María López', 'Masaje relajante', '2025-10-26'),  -- Carlos tomó desayuno buffet
+('Lucía Fernández', 'Desayuno buffet', '2025-10-27'),  -- Lucía recibió masaje
+('Javier Ruiz', 'Servicio de lavandería', '2025-10-27'),  -- Lucía también tomó desayuno
+('Javier Ruiz', 'Desayuno buffet', '2025-10-28'),  -- Pedro usó lavandería
+('Paula Vega', 'Transporte al aeropuerto', '2025-10-28');  -- Pedro usó transporte
