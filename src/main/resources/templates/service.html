@@ -18,7 +18,6 @@
     <table class="table table-bordered mt-3">
         <thead>
         <tr>
-            <th>ID</th>
             <th>Nombre del Servicio</th>
             <th>Descripción</th>
             <th>Precio</th>
@@ -28,7 +27,6 @@
         </thead>
         <tbody>
         <tr th:each="service : ${listServices}">
-            <td th:text="${service.service_id}"></td>
             <td th:text="${service.service_name}"></td>
             <td th:text="${service.description}"></td>
             <td th:text="${service.price}"></td>
