@@ -30,7 +30,7 @@
 
         <div class="mb-3">
             <label for="service_date" class="form-label">Fecha del servicio:</label>
-            <input type="date" th:field="*{serviceDate}" id="service_date" class="form-control" required />
+            <input type="date" th:field="*{service_date}" id="service_date" class="form-control" required />
         </div>
 
         <button type="submit" class="btn btn-primary" th:text="${client_service.client_id == null && client_service.service_id == null ? 'Crear' : 'Actualizar'}"></button>
