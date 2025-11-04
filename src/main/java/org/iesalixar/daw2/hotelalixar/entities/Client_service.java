@@ -17,4 +17,6 @@ public class Client_service {
     private Long client_id;
     private Long service_id;
     private LocalDate service_date;
+    private String client_name;
+    private String service_name;
 }

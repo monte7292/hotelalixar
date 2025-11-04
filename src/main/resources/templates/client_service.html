@@ -26,8 +26,8 @@
         </thead>
         <tbody>
         <tr th:each="client_service : ${listClients_services}">
-            <td th:text="${client_service.client_id}"></td>
-            <td th:text="${client_service.service_id}"></td>
+            <td th:text="${client_service.client_name}"></td>
+            <td th:text="${client_service.service_name}"></td>
             <td th:text="${client_service.service_date}"></td>
             <td>
 
