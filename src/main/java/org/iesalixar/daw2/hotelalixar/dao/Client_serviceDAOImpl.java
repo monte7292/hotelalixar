@@ -23,7 +23,15 @@ public class Client_serviceDAOImpl implements Client_serviceDAO{
     @Override
     public List<Client_service> listAllClient_Services() throws SQLException {
         logger.info("Listing all client_services relations from the database.");
-        String sql = "SELECT * FROM client_services";
+        String sql = """
+            SELECT cs.client_id, cs.service_id, cs.service_date, 
+                   clientes.full_name AS client_name,
+                   services.service_name AS service_name
+            FROM client_services cs
+            JOIN clients clientes ON cs.client_id = clientes.client_id
+            JOIN services services ON cs.service_id = services.service_id
+        """;
+
         List<Client_service> client_services = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Client_service.class));
         logger.info("Retrieved {} client_services from the database.", client_services.size());
         return client_services;
